@@ -135,6 +135,14 @@ async def load_chat(channel: discord.TextChannel, interval: str) -> list[discord
 
     return source_messages
 
+def collect_participants(messages: list[discord.Message]) -> dict[int, str]:
+    participants = {}
+    for message in messages:
+        if message.author.id not in participants:
+            participants[message.author.id] = message.author.name
+
+    return participants
+
 def replace_participants(message: str, participants: dict[int, str]) -> str:
     # replace participant name with optional `@` prefix with their mention
     for participant_id, participant_name in participants.items():
@@ -142,11 +150,14 @@ def replace_participants(message: str, participants: dict[int, str]) -> str:
     
     return message
 
+def message_url(message: discord.Message) -> str:
+    return f"https://discord.com/channels/{message.guild.id}/{message.channel.id}/{message.id}"
+
 class Summarize(commands.Cog):
     def __init__(self, bot_: discord.Bot):
         self.bot = bot_
 
-    summarize = SlashCommandGroup("summarize", description="Get a quick summary of what's going on in the server.")
+    summarize = SlashCommandGroup("summarize", description="Get a quick summary of what's going on in the server.", guild_ids=[994570645671268442,966090258104062023])
 
     @summarize.command(description="Get a summary of the current channel.")
     async def here(
@@ -179,22 +190,20 @@ class Summarize(commands.Cog):
         channel: discord.TextChannel,
         interval: str
     ):
+        debug_data = "Collecting messages...\n\n"
+
         source_messages = await load_chat(channel, interval)
-        await ctx.respond(f"Found {len(source_messages)} messages. Starting summarization...")
+        debug_data += f"Found {len(source_messages)} messages between {source_messages[0].created_at} and {source_messages[-1].created_at}.\n\n"
+        await ctx.edit(content=f"```\n{debug_data}\n```")
 
-        first_message_link = f"https://discord.com/channels/{source_messages[0].guild.id}/{source_messages[0].channel.id}/{source_messages[0].id}"
-        last_message_link = f"https://discord.com/channels/{source_messages[-1].guild.id}/{source_messages[-1].channel.id}/{source_messages[-1].id}"
-
-        participants = {}
-        for message in source_messages:
-            if message.author.id not in participants:
-                participants[message.author.id] = message.author.name
+        participants = collect_participants(source_messages)
 
         conversation = [f"@{message.author.name}: {message.content}" for message in source_messages if message.content]
         conversation = '\n\n'.join(conversation)
         documents = text_splitter.create_documents(text_splitter.split_text(conversation))
 
-        await ctx.edit(content=f"Filtered {len(documents)} documents. Summarizing... \n First message: {first_message_link}, Last message: {last_message_link}")
+        debug_data += f"Filtered {len(documents)} documents. Summarizing...\n\n"
+        await ctx.edit(content=f"```\n{debug_data}\n```")
 
         summary = chain.run(documents)
         chunks = split_text_into_chunks(summary, 2000)
@@ -202,7 +211,7 @@ class Summarize(commands.Cog):
 
         reply = await ctx.edit(content=chunks[0])
         for chunk in chunks[1:]:
-            reply = await reply.reply(chunk)
+            reply = await reply.reply(content=chunk)
         
 
 def setup(bot):
