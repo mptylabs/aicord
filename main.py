@@ -4,6 +4,7 @@ from typing import TypedDict
 
 import asyncio
 import os
+import logging
 from dotenv import load_dotenv
 
 import discord
@@ -49,4 +50,7 @@ async def main() -> None:
     await bot.start()
 
 if __name__ == "__main__":
-    asyncio.run(main())
+    try:
+        asyncio.run(main())
+    except KeyboardInterrupt:
+        pass
