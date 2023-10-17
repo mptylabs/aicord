@@ -191,6 +191,7 @@ class Summarize(commands.Cog):
         interval: str
     ):
         debug_data = "Collecting messages...\n\n"
+        await ctx.respond(f"```\n{debug_data}\n```")
 
         source_messages = await load_chat(channel, interval)
         debug_data += f"Found {len(source_messages)} messages between {source_messages[0].created_at} and {source_messages[-1].created_at}.\n\n"
