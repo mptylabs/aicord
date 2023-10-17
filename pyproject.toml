@@ -1,0 +1,25 @@
+[tool.poetry]
+name = "aicord"
+version = "0.1.0"
+description = "Truly useful AI-enabled Discord bot"
+
+authors = [
+    "Leonid Meleshin <hello@leon0399.ru>"
+]
+
+[tool.poetry.dependencies]
+# Compatible Python versions
+python = ">=3.10,<4.0"
+langchain = "^0.0.314"
+duration-parser = "^1.0.1"
+openai = "^0.28.1"
+jishaku = "^2.5.1"
+py-cord = "^2.4.1"
+python-dotenv = "^1.0.0"
+tiktoken = "^0.5.1"
+
+[tool.poetry.dev-dependencies]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
