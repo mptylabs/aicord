@@ -31,7 +31,3 @@ class TestSplitParagraphChunks(unittest.TestCase):
             split_paragraph_chunks("\n\n".join(paragraphs), 1000),
             ["A" * 500 + "\n\n" + "B" * 500, "B" * 200 + "\n\n" + "C" * 800],
         )
-
-
-if __name__ == "__main__":
-    unittest.main()
