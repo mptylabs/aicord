@@ -1,4 +1,4 @@
-name: ".github/workflows/test.yml"
+name: .github/workflows/test.yml
 content: |
   name: Run Tests
 
