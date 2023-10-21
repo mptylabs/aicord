@@ -2,23 +2,11 @@ from __future__ import annotations
 
 from typing import TypedDict
 
-import asyncio
 import os
-import logging
-from dotenv import load_dotenv
 
 import discord
 
-from cogs import COGS
-
-load_dotenv()
-
-owner_guild_ids = [int(id) for id in os.environ['OWNER_GUILD_IDS'].split(',')]
-owner_ids = [int(id) for id in os.environ['OWNER_IDS'].split(',')]
-
-intents = discord.Intents.default()
-intents.guild_messages = True
-intents.message_content = True
+from aicord.discord.cogs import COGS
 
 class BotConfig(TypedDict, total=False):
     owner_ids: list[int]
@@ -26,17 +14,23 @@ class BotConfig(TypedDict, total=False):
 
 class AicordBot(discord.Bot):
     def __init__(self, config: BotConfig) -> None:
-        super().__init__()
+        intents = discord.Intents.default()
+
+        super().__init__(intents=intents)
 
         self.config: BotConfig = config
 
     def run(self) -> None:
         raise NotImplementedError("Please use `.start()` instead.")
-    
+
     async def start(self) -> None:
         await super().start(os.environ['DISCORD_TOKEN'])
 
+
 async def main() -> None:
+    owner_guild_ids = [int(guild_id) for guild_id in os.environ['OWNER_GUILD_IDS'].split(',')]
+    owner_ids = [int(owner_id) for owner_id in os.environ['OWNER_IDS'].split(',')]
+
     config = BotConfig(
         owner_ids=owner_ids,
         owner_guild_ids=owner_guild_ids
@@ -48,9 +42,3 @@ async def main() -> None:
         bot.load_extension(cog.name)
 
     await bot.start()
-
-if __name__ == "__main__":
-    try:
-        asyncio.run(main())
-    except KeyboardInterrupt:
-        pass

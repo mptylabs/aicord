@@ -26,4 +26,4 @@ COPY --from=builder ${VIRTUAL_ENV} ${VIRTUAL_ENV}
 
 COPY . /app
 
-CMD ["python", "main.py"]
+CMD ["python", "-m", "aicord"]
