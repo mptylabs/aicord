@@ -42,6 +42,18 @@ class TestSplitParagraphChunks(unittest.TestCase):
             "This is the second paragraph.",
         ]
         self.assertEqual(split_paragraph_chunks(text, max_length), expected_output)
+    
+    def test_multiple_small_paragraphs(self):
+        """
+        Test case where multiple paragraphs are smaller than max length, so that 2 paragraphs fit into 1 chunk, but 3rd one doesn't.
+        """
+        text = "This is the first paragraph. " + "This is the second paragraph.\n\n" + "This is the third paragraph."
+        max_length = 100
+        expected_output = [
+            "This is the first paragraph. This is the second paragraph.",
+            "This is the third paragraph.",
+        ]
+        self.assertEqual(split_paragraph_chunks(text, max_length), expected_output)
 
 
 if __name__ == "__main__":
