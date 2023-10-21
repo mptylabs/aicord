@@ -26,9 +26,9 @@ class TestSplitParagraphChunks(unittest.TestCase):
         """
         Test case where the text is longer than the maximum length.
         """
-        text = "a" * 200
+        text = "This is a test string. It is more than one hundred characters long, including spaces and punctuation. This is the second part of the string."
         max_length = 100
-        expected_output = ["a" * 100, "a" * 100]
+        expected_output = ["This is a test string. It is more than one hundred characters long, including spaces and punctuation.", "This is the second part of the string."]
         self.assertEqual(split_paragraph_chunks(text, max_length), expected_output)
 
     def test_multiple_paragraphs(self):
