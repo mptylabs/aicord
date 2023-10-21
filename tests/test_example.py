@@ -1,2 +1,3 @@
 def test_addition():
-    assert 1 + 1 == 2
+    if not 1 + 1 == 2:
+        raise AssertionError("1 + 1 does not equal 2")
