@@ -9,7 +9,7 @@ rules:
   - "There should be no debug log or print statements in production code."
   - "All functions should have parameters and output annotated with type hints. Use list, tuple and dict instead of typing.List, typing.Tuple and typing.dict."
   - "Leftover TODOs in the code should be handled."
-  - "All new business logic should have corresponding unit tests in the same directory. For example, sweepai/api_test.py tests sweepai/api.py. Use unittest and unittest.mock as required."
+  - "All new business logic should have corresponding unit tests in the same directory. For example, tests/utils/string_test.py tests aicord/utils/string.py. We use pytest for tests."
   - "Any clearly inefficient or repeated code should be optimized or refactored."
   - "Remove any comments before code that are obvious. For example `# this prints hello world; print('hello world')`."
   - "Avoid duplicating code. Refactor and update duplicate code to improve maintainability."
@@ -17,7 +17,7 @@ rules:
   - "Handle exceptions gracefully and provide appropriate error handling and logging."
 
 # This is the branch that Sweep will develop from and make pull requests to. Most people use 'main' or 'master' but some users also use 'dev' or 'staging'.
-branch: 'main'
+branch: 'master'
 
 # By default Sweep will read the logs and outputs from your existing Github Actions. To disable this, set this to false.
 gha_enabled: True
@@ -27,7 +27,7 @@ gha_enabled: True
 # Example:
 #
 # description: sweepai/sweep is a python project. The main api endpoints are in sweepai/api.py. Write code that adheres to PEP8.
-description: 'Aicord is a python 3.10 project. Main bot functianality is in aicord/discord/cogs modules. Each cog reposents a category of commands. All imports should be global (like `import sweepai.utils.github_utils`). Write unit tests in the same directory as their corresponding code, i.e. aicord/utils/string_test.py tests aicord/utils/string.py. We use unittest and unittest.mock for tests. Never use wildcard imports.'
+description: 'Aicord is a python 3.10 project. Main bot functianality is in aicord/discord/cogs modules. Each cog reposents a category of commands. All imports should be global (like `import sweepai.utils.github_utils`). Never use wildcard imports. Write unit tests in the same directory as their corresponding code, i.e. tests/utils/string_test.py tests aicord/utils/string.py. We use pytest for tests.'
 
 # This sets whether to create pull requests as drafts. If this is set to True, then all pull requests will be created as drafts and GitHub Actions will not be triggered.
 draft: False
@@ -45,6 +45,7 @@ docs:
   - LangChain: ["https://python.langchain.com/docs/get_started/introduction", "We use LangChain for LLM"]
   - Pycord: ["https://docs.pycord.dev/en/stable/", "We use Pycord for Discord API and bot commands"]
   - gitmoji: ["https://gitmoji.dev/specification", "We use gitmoji for commit messages"]
+  - pytest: ["https://docs.pytest.org/en/7.4.x/", "We use pytest for unit tests"]
 
 # Sandbox executes commands in a sandboxed environment to validate code changes after every edit to guarantee pristine code. For more details, see the [Sandbox](./sandbox) page.
 sandbox:
