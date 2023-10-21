@@ -1,14 +1,15 @@
-from __future__ import annotations
-
 import asyncio
+
 from dotenv import load_dotenv
 
-load_dotenv()
+from aicord.discord.bot import main
+
 
 if __name__ == "__main__":
-    from aicord.discord.bot import main
 
+    load_dotenv()
     try:
         asyncio.run(main())
+
     except KeyboardInterrupt:
         pass

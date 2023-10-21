@@ -8,9 +8,11 @@ import discord
 
 from aicord.discord.cogs import COGS
 
+
 class BotConfig(TypedDict, total=False):
     owner_ids: list[int]
     owner_guild_ids: list[int]
+
 
 class AicordBot(discord.Bot):
     def __init__(self, config: BotConfig) -> None:
@@ -42,3 +44,4 @@ async def main() -> None:
         bot.load_extension(cog.name)
 
     await bot.start()
+    print("Bot started.")
