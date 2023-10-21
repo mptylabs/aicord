@@ -3,12 +3,18 @@
 
 # This setting contains a list of rules that Sweep will check for. If any of these rules are broken in a new commit, Sweep will create an pull request to fix the broken rule.
 rules:
-- "All docstrings and comments should be up to date."
-- "Do not include unnecessary files in the repository, such as PyCharm configs, Docker-related files, and IDE-specific files."
-- "Use conventional naming for main files, such as "main.py" instead of "bot.py"."
-- "Avoid duplicating code. Refactor and update duplicate code to improve maintainability."
-- "Use consistent and descriptive commit messages that accurately reflect the changes made."
-- "Handle exceptions gracefully and provide appropriate error handling and logging."
+  - "There should not be large chunks of code that are just commented out. Docstrings and explanations in code are acceptable."
+  - "We should use loguru for error logging. If the log is inside an exception, use loguru.exception to add tracebacks. Use f-strings for string formatting in logger calls."
+  - "There should be no instances of `import pdb; pdb.set_trace()` in production code."
+  - "There should be no debug log or print statements in production code."
+  - "All functions should have parameters and output annotated with type hints. Use list, tuple and dict instead of typing.List, typing.Tuple and typing.dict."
+  - "Leftover TODOs in the code should be handled."
+  - "All new business logic should have corresponding unit tests in the same directory. For example, sweepai/api_test.py tests sweepai/api.py. Use unittest and unittest.mock as required."
+  - "Any clearly inefficient or repeated code should be optimized or refactored."
+  - "Remove any comments before code that are obvious. For example `# this prints hello world; print('hello world')`."
+  - "Avoid duplicating code. Refactor and update duplicate code to improve maintainability."
+  - "Use consistent and descriptive commit messages that accurately reflect the changes made. Use gitmoji for commit messages."
+  - "Handle exceptions gracefully and provide appropriate error handling and logging."
 
 # This is the branch that Sweep will develop from and make pull requests to. Most people use 'main' or 'master' but some users also use 'dev' or 'staging'.
 branch: 'main'
@@ -21,7 +27,7 @@ gha_enabled: True
 # Example:
 #
 # description: sweepai/sweep is a python project. The main api endpoints are in sweepai/api.py. Write code that adheres to PEP8.
-description: ''
+description: 'Aicord is a python 3.10 project. Main bot functianality is in aicord/discord/cogs modules. Each cog reposents a category of commands. All imports should be global (like `import sweepai.utils.github_utils`). Write unit tests in the same directory as their corresponding code, i.e. aicord/utils/string_test.py tests aicord/utils/string.py. We use unittest and unittest.mock for tests. Never use wildcard imports.'
 
 # This sets whether to create pull requests as drafts. If this is set to True, then all pull requests will be created as drafts and GitHub Actions will not be triggered.
 draft: False
@@ -35,7 +41,10 @@ blocked_dirs: []
 #
 # docs:
 #   - PyGitHub: ["https://pygithub.readthedocs.io/en/latest/", "We use pygithub to interact with the GitHub API"]
-docs: []
+docs: 
+  - LangChain: ["https://python.langchain.com/docs/get_started/introduction", "We use LangChain for LLM"]
+  - Pycord: ["https://docs.pycord.dev/en/stable/", "We use Pycord for Discord API and bot commands"]
+  - gitmoji: ["https://gitmoji.dev/specification", "We use gitmoji for commit messages"]
 
 # Sandbox executes commands in a sandboxed environment to validate code changes after every edit to guarantee pristine code. For more details, see the [Sandbox](./sandbox) page.
 sandbox:
