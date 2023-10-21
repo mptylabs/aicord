@@ -1,6 +1,7 @@
 import unittest
-from unittest.mock import patch
+
 from aicord.utils.string import split_paragraph_chunks
+
 
 class TestSplitParagraphChunks(unittest.TestCase):
     def test_short_text(self):
@@ -36,8 +37,12 @@ class TestSplitParagraphChunks(unittest.TestCase):
         """
         text = "This is the first paragraph.\n\nThis is the second paragraph."
         max_length = 100
-        expected_output = ["This is the first paragraph.", "This is the second paragraph."]
+        expected_output = [
+            "This is the first paragraph.",
+            "This is the second paragraph.",
+        ]
         self.assertEqual(split_paragraph_chunks(text, max_length), expected_output)
+
 
 if __name__ == "__main__":
     unittest.main()
