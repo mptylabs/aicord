@@ -12,7 +12,7 @@ WORKDIR /app
 COPY poetry.lock pyproject.toml ./
 
 # RUN --mount=type=cache,id=c4db0c74-0027-4edf-9670-297c828b3276-cache-poetry,target=$POETRY_CACHE_DIR poetry install --without dev --no-root
-RUN poetry install --without dev && \
+RUN poetry install --without test && \
     rm -rf $POETRY_CACHE_DIR
 
 FROM python:3.11.6-alpine3.18 as runtime
