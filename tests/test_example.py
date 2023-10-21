@@ -1,2 +1,2 @@
 def test_addition():
-    assert 1 + 1 == 2
+    unittest.TestCase.assertEqual(1 + 1, 2)
