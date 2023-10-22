@@ -7,6 +7,7 @@ def test_split_paragraph_chunks():
         ("", 10, []),
         ("No paragraphs here", 10, ["No", "paragraphs", "here"]),
         ("This paragraph is too long for the limit", 10, ["This", "paragraph", "is too", "long for", "the limit"]),
+        ("First paragraph.\n\nSecond paragraph.\n\nThird paragraph is too long.", 20, ["First paragraph.", "Second paragraph.", "Third", "paragraph is", "too long."]),
     ]
 
     for text, max_length, expected in test_cases:
