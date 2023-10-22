@@ -11,4 +11,4 @@ def test_split_paragraph_chunks():
 
     for text, max_length, expected in test_cases:
         result = split_paragraph_chunks(text, max_length)
-        self.assertEqual(result, expected)
+        assert result == expected
