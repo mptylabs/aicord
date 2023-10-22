@@ -1,3 +1,4 @@
+import unittest
 import pytest
 from aicord.utils.string import split_paragraph_chunks
 
