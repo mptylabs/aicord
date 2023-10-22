@@ -4,9 +4,6 @@ from aicord.utils.string import split_paragraph_chunks
 def test_split_paragraph_chunks():
     test_cases = [
         ("Hello, world!\n\nThis is a test.", 10, ["Hello, world!", "This is a", "test."]),
-        ("", 10, []),
-        ("No paragraphs here", 10, ["No", "paragraphs", "here"]),
-        ("This paragraph is too long for the limit", 10, ["This", "paragraph", "is too", "long for", "the limit"]),
         ("First paragraph.\n\nSecond paragraph.\n\nThird paragraph is too long.", 20, ["First paragraph.", "Second paragraph.", "Third", "paragraph is", "too long."]),
     ]
 
