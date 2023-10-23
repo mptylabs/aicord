@@ -1,13 +1,13 @@
 # Sweep AI turns bugs & feature requests into code changes (https://sweep.dev)
 # For details on our config file, check out our docs at https://docs.sweep.dev/usage/config
 
-# This setting contains a list of rules that Sweep will check for. If any of these rules are broken in a new commit, Sweep will create an pull request to fix the broken rule.
+# This setting contains a list of rules that Sweep will check for. If any of these rules are broken in a new commit, Sweep will create a pull request to fix the broken rule.
 rules:
   - "There should not be large chunks of code that are just commented out. Docstrings and explanations in code are acceptable."
   - "We should use loguru for error logging. If the log is inside an exception, use loguru.exception to add tracebacks. Use f-strings for string formatting in logger calls."
   - "There should be no instances of `import pdb; pdb.set_trace()` in production code."
   - "There should be no debug log or print statements in production code."
-  - "All functions should have parameters and output annotated with type hints. Use list, tuple and dict instead of typing.List, typing.Tuple and typing.dict."
+  - "All functions should have parameters and output annotated with type hints. Use list, tuple, and dict instead of typing.List, typing.Tuple and typing.dict."
   - "Leftover TODOs in the code should be handled."
   - "All new business logic should have corresponding unit tests in the same directory. For example, tests/utils/string_test.py tests aicord/utils/string.py. We use pytest for tests."
   - "Any clearly inefficient or repeated code should be optimized or refactored."
@@ -23,11 +23,7 @@ branch: 'master'
 gha_enabled: True
 
 # This is the description of your project. It will be used by sweep when creating PRs. You can tell Sweep what's unique about your project, what frameworks you use, or anything else you want.
-#
-# Example:
-#
-# description: sweepai/sweep is a python project. The main api endpoints are in sweepai/api.py. Write code that adheres to PEP8.
-description: 'Aicord is a python 3.10 project. Main bot functianality is in aicord/discord/cogs modules. Each cog reposents a category of commands. All imports should be global (like `import sweepai.utils.github_utils`). Never use wildcard imports. Write unit tests in the same directory as their corresponding code, i.e. tests/utils/string_test.py tests aicord/utils/string.py. We use pytest for tests.'
+description: 'Aicord is a Python 3.10 project. The main bot functionality is in aicord/discord/cogs modules. Each cog represents a category of commands. All imports should be global (like `import sweepai.utils.github_utils`). Never use wildcard imports. Write unit tests in the same directory as their corresponding code, i.e., tests/utils/string_test.py tests aicord/utils/string.py. We use pytest for tests.'
 
 # This sets whether to create pull requests as drafts. If this is set to True, then all pull requests will be created as drafts and GitHub Actions will not be triggered.
 draft: False
@@ -36,16 +32,12 @@ draft: False
 blocked_dirs: []
 
 # This is a list of documentation links that Sweep will use to help it understand your code. You can add links to documentation for any packages you use here.
-#
-# Example:
-#
-# docs:
-#   - PyGitHub: ["https://pygithub.readthedocs.io/en/latest/", "We use pygithub to interact with the GitHub API"]
 docs: 
   - LangChain: ["https://python.langchain.com/docs/get_started/introduction", "We use LangChain for LLM"]
   - Pycord: ["https://docs.pycord.dev/en/stable/", "We use Pycord for Discord API and bot commands"]
   - gitmoji: ["https://gitmoji.dev/specification", "We use gitmoji for commit messages"]
   - pytest: ["https://docs.pytest.org/en/7.4.x/", "We use pytest for unit tests"]
+  - railway.app: ["https://help.railway.app/", "We use the railway.app for deployment"]
 
 # Sandbox executes commands in a sandboxed environment to validate code changes after every edit to guarantee pristine code. For more details, see the [Sandbox](./sandbox) page.
 sandbox:
