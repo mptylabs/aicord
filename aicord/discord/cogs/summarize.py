@@ -14,8 +14,14 @@ from aicord.core.ai.summarize import chain, text_splitter
 class Summarize(commands.Cog):
     def __init__(self, bot_: discord.Bot):
         self.bot = bot_
+    if not os.environ.get('GUILD_IDS'):
+        guild_ids = None
+    else:
+        guild_ids = os.environ.get('GUILD_IDS')
 
-    summarize = SlashCommandGroup("summarize", description="Get a quick summary of what's going on in the server.", guild_ids=[994570645671268442,966090258104062023])
+    summarize = SlashCommandGroup("summarize",
+                                  description="Get a quick summary of what's going on in the server.",
+                                  guild_ids=guild_ids)
 
     @staticmethod
     async def load_chat(channel: discord.TextChannel, interval: str) -> list[discord.Message]:

@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import discord
 
+
 def collect_participants(messages: list[discord.Message]) -> dict[int, str]:
     participants = {}
     for message in messages:
