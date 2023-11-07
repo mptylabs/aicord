@@ -1,7 +1,8 @@
 from __future__ import annotations
 
-import logging
 import os
+import logging
+logging.basicConfig(level=logging.INFO)
 
 from langchain.schema import (
     Document,
@@ -38,21 +39,25 @@ SUMMARY AND TOPIC BULLET LIST WITH THEIR AUTHORS AND PARTICIPANTS:
 """
 question_prompt = PromptTemplate.from_template(question_template)
 
-openai_api_key = os.environ['OPENAI_TOKEN']
-model_name = "gpt-4-1106-preview"
-llm = ChatOpenAI(temperature=0, openai_api_key=openai_api_key, model_name=model_name)
-embeddings = OpenAIEmbeddings(openai_api_key=openai_api_key)
-text_splitter = CharacterTextSplitter.from_tiktoken_encoder(
-    model_name=model_name,
-    # chunk_size=1000,
-    # chunk_overlap=200,
-)
-chain = load_summarize_chain(
-    llm,
-    chain_type="stuff",
-    prompt=question_prompt,
-    # chain_type="refine",
-    # question_prompt=question_prompt,
-    # refine_prompt=refine_prompt,
-    verbose=True,
-)
+try:
+    openai_api_key = os.environ['OPENAI_TOKEN']
+    model_name = "gpt-4-1106-preview"
+    llm = ChatOpenAI(temperature=0, openai_api_key=openai_api_key, model_name=model_name)
+    embeddings = OpenAIEmbeddings(openai_api_key=openai_api_key)
+    text_splitter = CharacterTextSplitter.from_tiktoken_encoder(
+        model_name=model_name,
+        # chunk_size=1000,
+        # chunk_overlap=200,
+    )
+    chain = load_summarize_chain(
+        llm,
+        chain_type="stuff",
+        prompt=question_prompt,
+        # chain_type="refine",
+        # question_prompt=question_prompt,
+        # refine_prompt=refine_prompt,
+        verbose=True,
+    )
+except Exception as e:
+    logging.error(f"Error occurred while setting up the model: {str(e)}")
+    raise
