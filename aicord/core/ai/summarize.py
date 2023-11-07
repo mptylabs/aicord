@@ -39,7 +39,7 @@ SUMMARY AND TOPIC BULLET LIST WITH THEIR AUTHORS AND PARTICIPANTS:
 question_prompt = PromptTemplate.from_template(question_template)
 
 openai_api_key = os.environ['OPENAI_TOKEN']
-model_name = "gpt-4-1106-preview"
+model_name: str = "gpt-4-1106-preview"
 llm = ChatOpenAI(temperature=0, openai_api_key=openai_api_key, model_name=model_name)
 embeddings = OpenAIEmbeddings(openai_api_key=openai_api_key)
 text_splitter = CharacterTextSplitter.from_tiktoken_encoder(
