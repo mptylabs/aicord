@@ -20,10 +20,15 @@ class AicordBot(discord.Bot):
 
         self.config: BotConfig = config
 
+    async def on_ready(self):
+        print(f"Logged in as {self.user} (ID: {self.user.id})")
+        print("------")
+
     def run(self) -> None:
         raise NotImplementedError("Please use `.start()` instead.")
 
     async def start(self) -> None:
+        print("Starting bot...")
         await super().start(os.environ['DISCORD_TOKEN'])
 
 

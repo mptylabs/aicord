@@ -8,7 +8,7 @@
             "name": "Python: Bot",
             "type": "python",
             "request": "launch",
-            "program": "${workspaceFolder}/bot.py",
+            "module": "aicord",
             "console": "integratedTerminal",
             "justMyCode": true
         }
